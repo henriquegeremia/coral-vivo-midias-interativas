@@ -178,6 +178,135 @@
     box-shadow: 0 0 20px rgba(0, 210, 180, 0.3);
   }
 
+  
+  /* Floating Axis Navigation Bar */
+  .floating-axis-nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: rgba(3, 19, 30, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 210, 180, 0.28);
+    border-radius: 40px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(0, 210, 180, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, border-color 0.3s ease;
+    max-width: 95vw;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .floating-axis-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .floating-axis-nav.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .floating-nav-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--teal-glow);
+    padding: 0 8px 0 4px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    white-space: nowrap;
+  }
+  .floating-nav-label .pulse-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--teal-glow);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--teal-glow);
+    animation: pulseGlow 2s infinite ease-in-out;
+  }
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  .floating-nav-items {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .floating-nav-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .floating-nav-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .floating-nav-btn.active {
+    background: var(--teal-glow);
+    color: #03131e;
+    font-weight: 700;
+    border-color: var(--teal-glow);
+    box-shadow: 0 0 16px rgba(0, 210, 180, 0.4);
+    transform: scale(1.04);
+  }
+  .floating-nav-btn .axis-badge {
+    font-size: 0.7rem;
+    opacity: 0.8;
+  }
+  .floating-nav-top {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 6px 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-left: 2px;
+  }
+  .floating-nav-top:hover {
+    color: var(--teal-glow);
+    background: rgba(0, 210, 180, 0.12);
+  }
+  @media (max-width: 768px) {
+    .floating-axis-nav {
+      bottom: 16px;
+      padding: 6px 10px;
+      max-width: 96vw;
+    }
+    .floating-nav-label {
+      display: none;
+    }
+    .floating-nav-btn {
+      padding: 5px 10px;
+      font-size: 0.74rem;
+    }
+  }
+
   /* Section Containers */
   .deck-container {
     max-width: 1200px;
@@ -845,6 +974,38 @@
 
 </div>
 
+
+<!-- Componente Flutuante de Navegação dos 6 Eixos -->
+<nav class="floating-axis-nav" id="floatingAxisNav" aria-label="Navegação Flutuante dos 6 Eixos">
+  <div class="floating-nav-label">
+    <span class="pulse-dot"></span>
+    <span>Eixos</span>
+  </div>
+  <div class="floating-nav-items">
+    <button class="floating-nav-btn" data-axis="axis-0" onclick="scrollToAxis('axis-0')">
+      <span class="axis-badge">★</span> Arte WebGL
+    </button>
+    <button class="floating-nav-btn" data-axis="axis-1" onclick="scrollToAxis('axis-1')">
+      <span class="axis-badge">1</span> Profundidade
+    </button>
+    <button class="floating-nav-btn" data-axis="axis-2" onclick="scrollToAxis('axis-2')">
+      <span class="axis-badge">2</span> Marés & Bahia
+    </button>
+    <button class="floating-nav-btn" data-axis="axis-3" onclick="scrollToAxis('axis-3')">
+      <span class="axis-badge">3</span> Espécies
+    </button>
+    <button class="floating-nav-btn" data-axis="axis-4" onclick="scrollToAxis('axis-4')">
+      <span class="axis-badge">4</span> Teia Ecológica
+    </button>
+    <button class="floating-nav-btn" data-axis="axis-5" onclick="scrollToAxis('axis-5')">
+      <span class="axis-badge">5</span> Calculadoras
+    </button>
+  </div>
+  <button class="floating-nav-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Voltar ao Topo">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+</nav>
+
 <footer>
   Projeto Coral Vivo · Proposta Conceitual de Mídias Interativas e Divulgação Científica · Desenvolvido em colaboração técnica
 </footer>
@@ -852,16 +1013,93 @@
 <script>
   function scrollToAxis(id) {
     if (id === 'all') {
-      window.scrollTo({ top: 400, behavior: 'smooth' });
+      const header = document.querySelector('.section-header-eixos');
+      if (header) {
+        header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 400, behavior: 'smooth' });
+      }
     } else {
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = el.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
     }
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    updateNavHighlight(id);
   }
+
+  function updateNavHighlight(currentId) {
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      const onclickAttr = btn.getAttribute('onclick') || '';
+      if (onclickAttr.includes("'" + currentId + "'")) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    document.querySelectorAll('.floating-nav-btn').forEach(btn => {
+      if (btn.getAttribute('data-axis') === currentId) {
+        btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const floatingNav = document.getElementById('floatingAxisNav');
+    const headerEixos = document.querySelector('.section-header-eixos');
+    const axisCards = document.querySelectorAll('.axis-card');
+
+    function handleScroll() {
+      if (!floatingNav || !headerEixos) return;
+      const headerRect = headerEixos.getBoundingClientRect();
+      const lastCard = axisCards[axisCards.length - 1];
+      const lastCardRect = lastCard ? lastCard.getBoundingClientRect() : null;
+
+      // Ativa barra flutuante logo após passar pelo topo da seção de eixos até o fim do último card
+      const showFloating = (headerRect.top < 120) && (lastCardRect && lastCardRect.bottom > 150);
+
+      if (showFloating) {
+        floatingNav.classList.add('visible');
+      } else {
+        floatingNav.classList.remove('visible');
+      }
+
+      // Detecção ativa baseada no terço superior do viewport
+      let activeId = null;
+      let minDistance = Infinity;
+      const targetPoint = window.innerHeight * 0.35;
+
+      axisCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom > 80 && rect.top < window.innerHeight - 80) {
+          const dist = Math.abs(rect.top - targetPoint);
+          if (dist < minDistance) {
+            minDistance = dist;
+            activeId = card.id;
+          }
+        }
+      });
+
+      if (activeId) {
+        updateNavHighlight(activeId);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  });
 </script>
 
 </body>
